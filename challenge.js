@@ -57,21 +57,39 @@
 //   if (str2[0] === str1[0]) return isSubsequence(str1.slice(1), str2.slice(1));
 //   return isSubsequence(str1, str2.slice(1));
 // }
-const findLongestSubstring = (str) => {
-  let longest = 0;
-  let seen = {};
-  let start = 0;
-  for (let i = 0; i < str.length; i++) {
-    let char = str[i];
-    if (seen[char]) {
-      start = Math.max(start, seen[char]);
+// const findLongestSubstring = (str) => {
+//   let longest = 0;
+//   let seen = {};
+//   let start = 0;
+//   for (let i = 0; i < str.length; i++) {
+//     let char = str[i];
+//     if (seen[char]) {
+//       start = Math.max(start, seen[char]);
+//     }
+//     longest = Math.max(longest, i - start + 1);
+//     seen[char] = i + 1;
+//   }
+//   //   console.log(start);
+//   console.log(longest[seen]);
+//   return longest;
+// };
+// console.log(findLongestSubstring("hello"));
+
+const nextGreatLetter = (letter, target) => {
+  let sort = letter.sort();
+
+  let target_char = target.charCodeAt();
+  for (let i = 0; i < sort.length; i++) {
+    if (sort[i].charCodeAt() === target_char) {
+      return sort[i + 1];
+    } else if (
+      sort[i].charCodeAt() !== target_char ||
+      sort[i].charCodeAt() > target_char
+    ) {
+      return sort[i] + sort[i + 1];
+    } else {
+      return sort[0];
     }
-    longest = Math.max(longest, i - start + 1);
-    console.log(seen[start]);
-    seen[char] = i + 1;
   }
-  //   console.log(start);
-  console.log(longest[seen]);
-  return longest;
 };
-console.log(findLongestSubstring("hello"));
+console.log(nextGreatLetter(["c", "f", "j"], "d"));
